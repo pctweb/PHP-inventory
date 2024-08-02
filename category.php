@@ -1,4 +1,6 @@
+<!-- index.php -->
 <?php include 'header.php'; ?>
+<link rel="stylesheet" href="css/styles.css">
 <?php
 // Detaliile de conectare la baza de date
 $servername = "localhost";
@@ -21,11 +23,14 @@ $result = $conn->query($sql);
 // Afișează rezultatele cu linkuri
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo "<a href='pagina_categorie.php?id=" . $row["id"] . "'>" . $row["name"] . "</a><br>";
+        echo "<a href='pagina_categorie.php?id=" . $row["id"] . "'>";
         echo "<div class='category'>";
         echo "<h2>" . htmlspecialchars($row['name']) . "</h2>";
-        echo "<img src='" . htmlspecialchars($row['image_path']) . "' alt='" . htmlspecialchars($row['name']) . "'>";
+        if (!empty($row['image_path'])) {
+            echo "<img src='" . htmlspecialchars($row['image_path']) . "' alt='" . htmlspecialchars($row['name']) . "'>";
+        }
         echo "</div>";
+        echo "</a>";
     }
 } else {
     echo "Nu există categorii.";
@@ -33,3 +38,5 @@ if ($result->num_rows > 0) {
 
 // Închide conexiunea
 $conn->close();
+?>
+<?php include 'footer.php'; ?>
