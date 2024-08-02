@@ -1,8 +1,11 @@
-<?php include 'header.php'; ?>
 <?php
 session_start();
 include('db_connection.php');
+?>
 
+<?php include 'header.php'; ?>
+
+<?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -18,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $username;
         $_SESSION['user_id'] = $id;
         header("Location: index.php");
+        exit();
     } else {
         echo "Invalid login credentials.";
     }
